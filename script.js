@@ -6,20 +6,20 @@ async function processPDF() {
 
     // ১. চেক করা হচ্ছে ইউজার ফাইল সিলেক্ট করেছে কি না
     if (fileInput.files.length === 0) {
-        alert("দয়া করে আগে একটি মেসি লেকচার PDF আপলোড করুন ভাই!");
+        alert("দয়া করে আগে একটি পিডিএফ ফাইল সিলেক্ট করুন।");
         return;
     }
 
     const file = fileInput.files[0];
     const formData = new FormData();
-    formData.append("file", file); // পাইথনের UploadFile-এর সাথে ম্যাচ করার জন্য ডেটা ফরম্যাট তৈরি
+    formData.append("file", file);
 
-    // ২. স্ক্রিনে লোডিং টেক্সট দেখানো এবং পুরানো রেজাল্ট হাইড করা
+    // ২. লোডিং টেক্সট দেখানো
     loadingText.style.display = "block";
     resultBox.style.display = "none";
 
     try {
-        // ৩. আমাদের লোকাল পাইথন সার্ভারে ফাইল পাঠানো হচ্ছে
+        // ৩. রেন্ডার লাইভ পাইথন সার্ভারে ফাইল পাঠানো হচ্ছে
         const response = await fetch('https://cleannotes-ai.onrender.com/upload-pdf', {
             method: 'POST',
             body: formData
@@ -34,15 +34,14 @@ async function processPDF() {
             return;
         }
 
-        // ৫. সফল হলে এআই-এর আউটপুট ড্যাশবোর্ডে দেখানো
-        aiOutput.innerText = data.ai_analysis;
+        // ৫. সফলভাবে রেসপন্স আসলে স্ক্রিনে দেখানো
+        aiOutput.innerHTML = data.notes;
         resultBox.style.display = "block";
 
-    } catch (error) {
-        console.error(error);
-        alert("সার্ভার কানেক্ট করা যায়নি! নিশ্চিত করুন আপনার পাইথন Uvicorn সার্ভারটি টার্মিনালে চালু আছে।");
+    } catch (err) {
+        alert("সার্ভারের সাথে যোগাযোগ করা যাচ্ছে না। দয়া করে একটু পর আবার চেষ্টা করুন।");
+        console.error(err);
     } finally {
-        // কাজ শেষে লোডিং টেক্সট বন্ধ করা
         loadingText.style.display = "none";
     }
 }
