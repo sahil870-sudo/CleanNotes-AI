@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✨ CleanNotes AI - Transform Messy PDFs into Smart Notes</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #0b0f19; color: #f1f5f9; margin: 0; padding: 40px; display: flex; justify-content: center; }
+        .container { width: 100%; max-width: 800px; background: #111827; padding: 40px; border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.7); border: 1px solid #1f2937; }
+        h1 { color: #38bdf8; text-align: center; margin-bottom: 5px; font-size: 32px; }
+        .subtitle { text-align: center; color: #94a3b8; margin-bottom: 35px; }
+        .upload-box { border: 2px dashed #38bdf8; padding: 30px; text-align: center; border-radius: 12px; background: #1f2937; cursor: pointer; transition: 0.3s; }
+        .upload-box:hover { background: #2d3748; border-color: #0ea5e9; }
+        .upload-box p { margin: 0; font-size: 16px; color: #cbd5e1; }
+        input[type="file"] { display: none; }
+        button { width: 100%; padding: 14px; background: #0284c7; color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.2s; margin-top: 20px; }
+        button:hover { background: #0369a1; }
+        .loading { display: none; text-align: center; color: #fbbf24; font-weight: bold; margin-top: 20px; }
+        .output-box { margin-top: 40px; display: none; padding: 25px; background: #1e293b; border-radius: 12px; border: 1px solid #334155; }
+        .output-title { color: #38bdf8; font-size: 20px; margin-top: 0; border-bottom: 1px solid #475569; padding-bottom: 10px; }
+        .result-content { white-space: pre-wrap; line-height: 1.7; color: #e2e8f0; font-size: 15px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>✨ CleanNotes AI</h1>
+    <div class="subtitle">আপনার মেসি লেকচার পিডিএফকে মাত্র ১ ক্লিকে বানান প্রিমিয়াম স্টাডি নোটস</div>
+
+    <div class="upload-box" onclick="document.getElementById('pdfFile').click()">
+        <p>📂 এখানে ক্লিক করে আপনার লেকচার PDF সিলেক্ট করুন</p>
+        <span id="fileNameDisplay" style="display:block; margin-top:10px; color:#38bdf8; font-weight:bold;"></span>
+        <input type="file" id="pdfFile" accept=".pdf" onchange="displayFileName()">
+    </div>
+
+    <button onclick="processPDF()">Generate Clean Notes Pro</button>
+
+    <div class="loading" id="loadingText">⏳ AI আপনার পিডিএফ অ্যানালাইসিস করছে... দয়া করে অপেক্ষা করুন...</div>
+
+    <div class="output-box" id="resultBox">
+        <h2 class="output-title">📊 AI জেনারেটেড ক্লিন স্টাডি মেটেরিয়াল:</h2>
+        <div class="result-content" id="aiOutput"></div>
+    </div>
+</div>
+
+<script>
+    function displayFileName() {
+        const fileInput = document.getElementById('pdfFile');
+        const display = document.getElementById('fileNameDisplay');
+        if(fileInput.files.length > 0) {
+            display.innerText = "সিলেক্টেড ফাইল: " + fileInput.files[0].name;
+        }
+    }
+</script>
+<script src="script.js"></script>
+</body>
+</html>
