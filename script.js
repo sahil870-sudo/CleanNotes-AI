@@ -20,7 +20,7 @@ async function processPDF() {
 
     try {
         // ৩. আমাদের লোকাল পাইথন সার্ভারে ফাইল পাঠানো হচ্ছে
-        const response = await fetch('https://cleannotes-ai.onrender.com/upload-pdf', {', {
+        const response = await fetch('https://cleannotes-ai.onrender.com/upload-pdf', {
             method: 'POST',
             body: formData
         });
